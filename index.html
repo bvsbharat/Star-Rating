@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Untitled Document</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+
+<style>
+	.starContainer {
+		width: 316px;
+		display: inline-block;
+	}
+</style>
+
+<body>
+	<input type="text" placeholder="enter number" id="txtbox1"/>
+	<button id="set">Enter</button>
+	<br/>
+	<br/>
+
+	<div class="starContainer" data-value="3.8" id="starDiv">
+	</div>
+
+
+	<script>
+		$("#set").on("click", function () {
+
+			$("#starDiv").attr("data-value",$("#txtbox1").val());
+			
+			setStarRating();
+
+		});
+
+
+		function setStarRating() {
+			// for plugin-devlopement 
+			$(".starContainer").each(function () {
+
+				var value = parseFloat($(this).attr("data-value")).toFixed(2);
+				for (var i = 1; i <= 5; i++) {
+					if (value >= 1) {
+						$(this).html($(this).html() + '<img class="star" alt="Star" src="img/full-star.png"> ');
+
+					} else if (value > 0 && value < 1) {
+						var floatPoint = "" + value;
+						floatPoint = floatPoint.split(".")[1][0];
+						floatPoint = parseInt(floatPoint) + 1;
+						$(this).html($(this).html() + '<img class="star" alt="Star" src="img/partial-star-' + floatPoint + '.png"> ');
+					} else {
+						$(this).html($(this).html() + '<img class="star" alt="Star" src="img/empty-star.png"> ');
+					}
+
+					value = value - 1;
+				}
+
+
+
+			});
+		}
+	</script>
+</body>
+
+</html>
